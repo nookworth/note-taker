@@ -1,10 +1,6 @@
-const path = require("path");
+const notes = require("./notes");
 const router = require("express").Router();
 
-router.get("/notes", (req, res) => {
-  console.info(`${req.method} request received for feedback`);
-
-  readFromFile("../../db/db.json").then((data) => res.json(JSON.parse(data)));
-});
+router.use("/notes", notes);
 
 module.exports = router;
