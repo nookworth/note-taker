@@ -4,7 +4,7 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 const data = require("./Develop/db/db.json");
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -55,7 +55,6 @@ app.post("/api/notes", (req, res) => {
 
     res.json(response);
     console.log(response);
-    
   }
 });
 
