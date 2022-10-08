@@ -10,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./Develop/public"));
 
 const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
@@ -33,7 +34,14 @@ app.get("/notes", (req, res) =>
 );
 
 app.get("/api/notes", (req, res) => {
-  res.json(data);
+  fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(data);
+      res.json(JSON.parse(data));
+    }
+  });
 });
 
 app.post("/api/notes", (req, res) => {
@@ -54,7 +62,6 @@ app.post("/api/notes", (req, res) => {
     };
 
     res.json(response);
-    console.log(response);
   }
 });
 
